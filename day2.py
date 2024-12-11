@@ -10,13 +10,13 @@ with open('input.txt', 'r') as fd:
 
 
 def check_report(report: List[int]) -> bool:
-    is_ascending = report[1] - report[0] > 0
+    is_ascending = report[1] > report[0]
     prev_level = report[0]
-    for level in report[1:]:
-        dt = level - prev_level
-        if dt < 0 and is_ascending or dt > 0 and not is_ascending or abs(dt) < 1 or abs(dt) > 3:
+    for curr_level in report[1:]:
+        dt = curr_level - prev_level
+        if dt < 0 and is_ascending or dt > 0 and not is_ascending or dt not in [-3, -2, -1, 1, 2, 3]:
             return False
-        prev_level = level
+        prev_level = curr_level
     return True
 
 def solve_part_one():
