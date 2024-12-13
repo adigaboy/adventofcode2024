@@ -1,4 +1,5 @@
 XMAS = 'XMAS'
+SAMX = 'SAMX'
 
 input = []
 
@@ -25,7 +26,7 @@ def solve_part_one():
                     count += 1
             if i > 2:
                 # check left #
-                if ''.join([input[j][i-k] for k in range(4)]) == XMAS:
+                if input[j][i-3: i +1] == SAMX:
                     count += 1
                 # check up left #
                 if j > 2 and ''.join([input[j-k][i-k] for k in range(4)]) == XMAS:
@@ -51,9 +52,9 @@ def solve_part_two():
             if input[j][i] != 'A':
                 continue
             num_of_mas = 0
-            if ''.join([input[j-1][i-1], input[j][i], input[j+1][i+1]]) in SAMMAS:
+            if input[j-1][i-1] + input[j][i] + input[j+1][i+1] in SAMMAS:
                 num_of_mas += 1
-            if ''.join([input[j+1][i-1], input[j][i], input[j-1][i+1]]) in SAMMAS:
+            if input[j+1][i-1] + input[j][i] + input[j-1][i+1] in SAMMAS:
                 num_of_mas += 1
             if num_of_mas == 2:
                 count += 1
