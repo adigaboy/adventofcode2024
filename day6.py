@@ -1,6 +1,6 @@
 from copy import deepcopy
 from enum import StrEnum, auto
-from typing import Tuple
+from typing import List, Tuple
 
 
 class Directions(StrEnum):
@@ -88,20 +88,28 @@ def check_if_looped(curr_j, curr_i) -> bool:
         direction = get_next_direction(direction)
     return False
 
-def solve_part_two():
-    count = 0
-    map_solved = deepcopy(lab_map)
+def restore_map(fresh_map: List[List[str]]) -> None:
     lab_map.clear()
     read_input()
+
+def solve_part_two():
+    count = 0
+    map_solved: List[List[str]] = deepcopy(lab_map)
+    lab_map.clear()
+    read_input()
+    fresh_map = deepcopy(lab_map)
     start_j, start_i = find_mark_in_map()
     for j in range(len(map_solved)):
-        for i in range(len(map_solved[0])):
-            if map_solved[j][i] == 'X' and (j != start_j or i != start_i):
+        x_count = map_solved[j].count('X')
+        i = -1
+        while x_count:
+            i = map_solved[j].index('X', i + 1)
+            if j != start_j or i != start_i:
                 lab_map[j][i] = '#'
                 if check_if_looped(start_j, start_i):
                     count += 1
-                lab_map.clear()
-                read_input()
+                restore_map(fresh_map)
+            x_count -= 1
     print(count)
 
 solve_part_two()
