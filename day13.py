@@ -43,3 +43,15 @@ def solve_part_one():
     print(result)
 
 solve_part_one()
+
+def solve_part_two():
+    result = 0
+    for machine in machines:
+        x_target = machine['prize']['x'] + 10000000000000
+        y_target = machine['prize']['y'] + 10000000000000
+        A, B = solve_two_equations_with_two_variables(machine['A']['x'], machine['B']['x'], x_target, machine['A']['y'], machine['B']['y'], y_target)
+        if A and B is not None:
+            result += A * 3 + B
+    print(result)
+
+solve_part_two()
