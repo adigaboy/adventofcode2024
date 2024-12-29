@@ -1,4 +1,5 @@
 
+from time import sleep
 from typing import List
 
 
@@ -42,8 +43,19 @@ def solve_part_one():
             quads[2] += 1
         elif robot.x > 50 and robot.y > 51:
             quads[3] += 1
-    [print(robot.x, robot.y) for robot in robots]
-    # multiply all the quads
-    print(quads)
     print(quads[0] * quads[1] * quads[2] * quads[3])
-solve_part_one()
+# solve_part_one()
+
+def solve_part_two():
+    with open('output.txt', '+w') as fd:
+        for i in range(10000):
+            for robot in robots:
+                robot.move(1)
+            drawing = [['.' for _ in range(101)] for __ in range(103)]
+            for robot in robots:
+                drawing[robot.y][robot.x] = '#'
+            for row in drawing:
+                if ''.join(row).find('##########') != -1:
+                    return i
+
+print(solve_part_two())
