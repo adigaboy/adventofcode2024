@@ -46,10 +46,10 @@ traceback_deltas = {
 
 def move_robot(x: int, y: int, direction: MOVES) -> Tuple[int, int]:
     next_x, next_y = tuple(map(sum, zip((x, y), next_move_deltas[direction])))
+    curr_x, curr_y = next_x, next_y
     if robot_map[next_y][next_x] == '#':
         return x, y
     if robot_map[next_y][next_x] == 'O':
-        curr_x, curr_y = next_x, next_y
         while robot_map[curr_y][curr_x] == 'O':
             curr_x, curr_y = tuple(map(sum, zip((curr_x, curr_y), next_move_deltas[direction])))
         if robot_map[curr_y][curr_x] == '#':
